@@ -24,14 +24,14 @@ Nest CLI 로 프로젝트 시작하려면, 다음 명령어를 실행하세요.
 이렇게하면 새 프로젝트 디렉토리가 생성되고 초기 핵심 Nest 파일 및 지원 모듈로 디렉토리가 채워져 프로젝트의 기존 기본 구조가 생성됩니다.
 처음 사용하는 사용자에게는 Nest CLI 로 새 프로젝트를 만드는 것이 좋습니다. 이 접근 방식은 첫 번째 단계 에서 계속할 것 입니다.
 
-```shell
+```bash
 $ npm i -g @nestjs/cli
 $ nest new project-name
 ```
 
 ### 대안
 또는 `Git` 을 사용하여 TypeScript 스타터 프로젝트를 설치하려면 다음을 수행하십시오 .
-```shell
+```bash
 $ git clone https://github.com/nestjs/typescript-starter.git project
 $ cd project
 $ npm install
@@ -44,6 +44,6 @@ $ npm run start
 npm (또는 yarn )을 사용하여 코어 및 지원 파일을 설치하여 처음부터 수동으로 새 프로젝트를 만들 수도 있습니다 .
 물론이 경우에는 프로젝트 상용구 파일을 직접 생성해야합니다.
 
-```shell
+```bash
 $ npm i --save @nestjs/core @nestjs/common rxjs reflect-metadata
 ```
