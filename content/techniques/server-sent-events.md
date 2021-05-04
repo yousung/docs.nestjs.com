@@ -1,10 +1,10 @@
 ### Server-Sent Events
 
-Server-Sent Events (SSE) is a server push technology enabling a client to receive automatic updates from a server via HTTP connection. Each notification is sent as a block of text terminated by a pair of newlines (learn more [here](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)).
+Server-Sent Events (SSE) 클라이언트가 HTTP 연결을 통해 서버에서 자동 업데이트를 받을 수 있는 서버 PUSH 기술입니다. 각 알림은 한쌍의 줄 바꿈으로 끝나는 텍스트 블록을 전송합니다 (더 배우려면 [here](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)).
 
-#### Usage
+#### 사용법
 
-To enable Server-Sent events on a route (route registered within a **controller class**), annotate the method handler with the `@Sse()` decorator.
+(**콘트롤러 클레스** 내에서 등록된 경로)에서 `@Sse()` 데코레이터를 등록하여 SSE 를 활성화 할 수 있습니다.
 
 ```typescript
 @Sse('sse')
@@ -13,13 +13,13 @@ sse(): Observable<MessageEvent> {
 }
 ```
 
-> info **Hint** The `@Sse()` decorator is imported from the `@nestjs/common`, while `Observable`, `interval`, `and map` are imported from the `rxjs` package.
+> info **힌트** `@Sse()` 데코레이터는 `@nestjs/common`, 안에  `Observable`, `interval`, `and map` 와 같이 있는 `rxjs`  패키지입니다.
 
-> warning **Warning** Server-Sent Events routes must return an `Observable` stream.
+> warning **경고** SSE는 `Observable` 스트림을 반환합니다.
 
-In the example above, we defined a route named `sse` that will allow us to propagate real-time updates. These events can be listened to using the [EventSource API](https://developer.mozilla.org/en-US/docs/Web/API/EventSource).
+위의 예제에서 `sse` 실시간 업데이트를 전파할 수 있는 경로를 정의했습니다. 이러한 이벤트는 [EventSource API](https://developer.mozilla.org/en-US/docs/Web/API/EventSource)를 사용하여 수신할 수 있습니다..
 
-The `sse` method returns an `Observable` that emits multiple `MessageEvent` (in this example, it emits a new `MessageEvent` every second). The `MessageEvent` object should respect the following interface to match the specification:
+`sse` 메서드는 `MessageEvent`를 `Observable` 반환하여 여러개 방출합니다.  (이 예제에서는 `MessageEvent`를 매초마다 새로 방출합니다).  `MessageEvent` 객체는 인터페이스와 일치하도록 준수 해야합니다.
 
 ```typescript
 export interface MessageEvent {
@@ -30,11 +30,11 @@ export interface MessageEvent {
 }
 ```
 
-With this in place, we can now create an instance of the `EventSource` class in our client-side application, passing the `/sse` route (which matches the endpoint we have passed into the `@Sse()` decorator above) as a constructor argument.
+이를 통해 클라이언트 어플리케이션에서 `EventSource` 생성하여, `/sse` 경로 (`@Sse()` 데코레이터 경로와 일치하는 endpoint ) 생성자 인수로 전달 할수 있습니다.
 
-`EventSource` instance opens a persistent connection to an HTTP server, which sends events in `text/event-stream` format. The connection remains open until closed by calling `EventSource.close()`.
+`EventSource` 인스턴스는 `text/event-stream` 형식으로 HTTP 서버에 지속적으로 연결합니다, 연결된 연결을 닫을 때에는 `EventSource.close()` 을 사용합니다.
 
-Once the connection is opened, incoming messages from the server are delivered to your code in the form of events. If there is an event field in the incoming message, the triggered event is the same as the event field value. If no event field is present, then a generic `message` event is fired ([source](https://developer.mozilla.org/en-US/docs/Web/API/EventSource)).
+연결이 열리면, 서버에서 들어오는 메세지는 이벤트형식으로 들어옵니다. 들어오는 메세지에 이벤트 필드가 있는 경우, 트리거된 이벤트는 이벤트 필드와 동일합니다. 이벤트 필드가 없으면 일반 `message` 이벤트가 발행됩니다 ([source](https://developer.mozilla.org/en-US/docs/Web/API/EventSource)).
 
 ```javascript
 const eventSource = new EventSource('/sse');
@@ -43,6 +43,6 @@ eventSource.onmessage = ({ data }) => {
 };
 ```
 
-#### Example
+#### 예제
 
-A working example is available [here](https://github.com/nestjs/nest/tree/master/sample/28-sse).
+작업된 예제는 [here](https://github.com/nestjs/nest/tree/master/sample/28-sse) 에서 확인할 수 있습니다.
